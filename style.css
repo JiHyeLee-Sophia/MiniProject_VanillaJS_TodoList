@@ -33,12 +33,14 @@ body{
        width:350px !important;
        height : 500px !important;
    }
-   .date, .input{
-       font-size: 1.5rem;
+   .date{
+       font-size: 1.5rem !important;
    }
+   .input,
+   .input::placeholder,
    main{
-       font-size: 1rem !important;
-    }
+    font-size: 1rem !important;
+   }
 
    .container2{
     display: flex;
