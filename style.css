@@ -1,22 +1,63 @@
 @import 'reset.css';
 
 body{
-    display:flex;
-    justify-content: center;
+    display:grid;
+    height: 100vh;
+    grid-template-columns: 500px 1fr;
+    align-items: center;
     background: #333 url('abc.jpg') no-repeat center center / cover;
-    overflow: hidden;
-    margin-top:3rem;
+    overflow: scroll;
+}
+@media(max-width:700px){
+   body{
+       display:flex;
+       flex-direction: column;
+       
+   }
 }
 .container{
     display:flex;
     flex-direction: column;
     color:white;
-    background-color: rgba(255, 182, 193, 0.432);
+    background-color: rgba(255, 182, 193, 0.644);
     font-family: sans-serif;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     width:400px;
     height: 600px;
+    margin:50px;
     border-radius: 15px;
+}
+.container2{
+    display: flex;
+    align-self: center;
+}
+.container2 .searchIcon{
+    background-color: rgba(255, 255, 255, 0.363);
+    height:34px;
+    width:30px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.searchIcon h3{
+    margin: 8px;
+}
+.container2 h3{
+    text-align: center;
+}
+.container2 input{
+    width:400px;
+    height: 2rem;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border: 0;
+    outline: 0;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding-left: 1rem;
+    background-color: rgba(255, 255, 255, 0.363);
+    color:white;
+}
+.container2 input::placeholder{
+    color:white;
 }
 header{
     height: 20%;
