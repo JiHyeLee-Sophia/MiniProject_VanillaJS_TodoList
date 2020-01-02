@@ -1,5 +1,5 @@
 function getNumber(){
-    const randomNum = Math.floor(Math.random()*10);
+    const randomNum = Math.floor(Math.random()*6);
     return randomNum;
 }
 function init(){
