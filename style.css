@@ -150,3 +150,9 @@ footer input::placeholder{
     font-size: 1.3rem;
     text-decoration: underline;
 }
+.message{
+    position: absolute;
+    bottom:5px;
+    left:5px;
+    color:white;    
+}
