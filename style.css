@@ -123,9 +123,6 @@ ul li{
 .fa-trash-o{
     justify-self: self-end;
 }
-.dis-show{
-    display: block;
-}
 .dis-non{
     display: none;
 }
