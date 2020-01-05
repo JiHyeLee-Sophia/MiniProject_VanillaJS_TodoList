@@ -12,35 +12,33 @@
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <!-- background && date  -->
-            <h2 class="date"></h2>
-        </header>
-        <main>
-            <!-- todoList -->
-            <ul class="todoList"></ul>
-        </main>
-        <footer>
-            <!-- add to do -->
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            <input type="text" class='input' placeholder="add to-do here" />
-        </footer>
-    </div>
-    <div class="container2">
-        <div class='searchIcon'>
-            <h3>🔍</h3>
+    <div id='basicScreen'>
+        <div class="container" id='original'>
+            <header>
+                <!-- background && date  -->
+                <h2 class="date"></h2>
+            </header>
+            <main>
+                <!-- todoList -->
+                <ul class="todoList"></ul>
+            </main>
+            <footer>
+                <!-- add to do -->
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <input type="text" class='input' placeholder="add to-do here" />
+            </footer>
         </div>
-        <form class='searchForm' action="http://www.google.com"></form>
-            <input type="text" class="fa-search" placeholder='search..' name='search'/>
-        </form>
+        <div id='plusIcon'>
+            <i class="fa fa-calendar-plus-o plusIcon" aria-hidden="true"></i>
+        </div>
     </div>
+    <div class='newAddedList'></div>
     <div>
         <h5 class='message'>The pictures were taken by JI HYE LEE</h5>
     </div>
     <script src="main.js"></script>
     <script src="background.js"></script>
-
+    <script src="addplan.js"></script>
 </body>
 
 </html>
