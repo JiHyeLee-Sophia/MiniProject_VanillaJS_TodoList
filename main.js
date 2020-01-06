@@ -64,7 +64,7 @@ function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) 
     <i class="fa fa-trash-o btn removeButton item" aria-hidden="true"></i>`;
     li.addEventListener('click', clickHandler)
     ulForList.appendChild(li)
-    ulForList.classList.add(listOfTodos);
+    // ulForList.classList.add(listOfTodos);
     const liEle = {
         text: INPUTVALUE,
         id: anArray.length + 1,

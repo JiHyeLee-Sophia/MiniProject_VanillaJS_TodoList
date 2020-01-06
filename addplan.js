@@ -17,7 +17,8 @@ function titleNListHandler(event) {
             ET.classList.add('dis-non') //input display none
             saveLS(newTODOS, newLiEle_LS); //save title with an empty array
             const main = ET.parentElement.nextElementSibling;
-            main.firstElementChild.classList.add(ETV);
+            ETV.
+            // main.firstElementChild.classList.add(ETV);
             main.nextElementSibling.lastElementChild.focus();
             main.nextElementSibling.lastElementChild.classList.add(ETV);
         } else if (ET.classList.contains('userNewInput')) {
