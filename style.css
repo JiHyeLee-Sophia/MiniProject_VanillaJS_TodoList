@@ -8,7 +8,6 @@ body{
     display: flex;
     align-items: center;
     overflow: auto;
-    
 }
 #basicScreen{
     display: flex;
@@ -115,6 +114,7 @@ footer input::placeholder,
     background-color: rgba(245, 245, 245, 0.747);
     border-radius: 50px;
     color: rgba(0, 0, 0, 0.726);
+    /* color: rgba(255, 0, 0, 0.527); */
     display: flex;
     height:80px;
     justify-content: center;

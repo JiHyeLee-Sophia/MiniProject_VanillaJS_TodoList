@@ -21,12 +21,23 @@ function titleNListHandler(event) {
             main.nextElementSibling.lastElementChild.focus();
             main.nextElementSibling.lastElementChild.classList.add(ETV);
         } else if (ET.classList.contains('userNewInput')) {
-            const headTitle = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerText;
+            const head = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild;
+            const headTitle = head.innerText;
             const ETV = ET.value;
             const getnew_LS = localStorage.getItem(headTitle);
             let new_LS = [];
             if (getnew_LS) {
                 new_LS = JSON.parse(getnew_LS);
+            }
+            if (headTitle === '') {
+                const headStyle = head.nextElementSibling.style;
+                    headStyle.backgroundColor = 'rgba(255, 0, 0, 0.627)';
+                    headStyle.borderRadius = '8px';
+                function preStyle() {
+                    headStyle.backgroundColor = 'rgba(0,0,0,0)';
+                    headStyle.borderRadius = '0';
+                }
+                setTimeout(preStyle, 2000);
             }
             const thisUl = ET.parentElement.previousElementSibling.firstElementChild;
             createNewList(new_LS, ETV, getnew_LS, headTitle, thisUl);
