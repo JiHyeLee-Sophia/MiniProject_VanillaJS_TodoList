@@ -20,6 +20,7 @@ function titleNListHandler(event) {
         } else if (ET.classList.contains('userNewInput')) {
             const ETV = ET.value;
             const getnew_LS = localStorage.getItem(newTODOS);
+            let new_LS = JSON.parse(getnew_LS);
             const allUl = document.querySelectorAll('main ul');
             let thisUl = '';
             allUl.forEach(ul => {
@@ -27,8 +28,10 @@ function titleNListHandler(event) {
                     thisUl = ul;
                 }
             });
-            createNewList(emptyLi_LS, ETV, getnew_LS, newTODOS, thisUl)
+            newLiEle_LS=new_LS;
+            createNewList(newLiEle_LS, ETV, getnew_LS, newTODOS, thisUl)
             ET.value = '';
+            
         }
     }
 }
@@ -90,7 +93,6 @@ function initContainers() {
             const parsedLS = JSON.parse(getListLS);
             const newListArray=[];
             const newUl = document.querySelectorAll('ul');
-            // emptyLi_LS.push(parsedLS);
             newUl.forEach(ul => {
                 if(ul.id==index+1){
                     const ulTitle = ul.parentElement.previousElementSibling.firstElementChild;
