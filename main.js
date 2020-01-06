@@ -55,6 +55,7 @@ function clickHandler(event) {
 function saveLS(listOfTodos, anArray) {
     localStorage.setItem(listOfTodos, JSON.stringify(anArray))
 }
+        // empty or filled array, inputV, checkForCheckedBox, ul to add class and list
 function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
     const li = document.createElement('li');
     li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
@@ -84,7 +85,6 @@ function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) 
         })
     }
     anArray.push(liEle);
-
 }
 function createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
     createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList);
