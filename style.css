@@ -34,12 +34,25 @@ header{
     display: flex;
     align-items: flex-end;
 }
-header h2,
+#original header h2,
 .title{
     width:100%;
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: .3rem;
+}
+.newAddedList header h2{
+    text-align: left;
+    margin-left: 1rem;   
+}
+.newAddedList header h2,
+.newAddedList .titleInput{
+    width:80%;
+}
+.delBtn,
+.editBtn{
+    font-size:1.5rem;
+    margin:5px;
 }
 main{
     padding:1rem;

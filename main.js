@@ -2,7 +2,7 @@ const TODOS = 'todos';
 const container = document.querySelector('.container');
 const today = container.querySelector('.date');
 const btns = document.querySelectorAll('.btn');
-const ul = document.querySelector('.todoList')
+const ul = document.querySelector('.todos')
 const input = document.querySelector('.input')
 const getLS = localStorage.getItem(TODOS);
 let liEle_LS = [];
@@ -12,53 +12,55 @@ function getDate() {
     const options = { weekday: 'long', month: 'short', day: 'numeric' };
     today.innerHTML = currentDate.toLocaleDateString('en-US', options);
 }
-
+function checkByButtons(ET, ETC, ETspan, ETspanId){
+    const todoName=ET.parentElement.parentElement.classList[0];
+    const itemLS = JSON.parse(localStorage.getItem(todoName));
+    if (ETC.contains('emptyButton')) {
+        const next = ET.nextElementSibling.classList;
+        ETC.toggle('dis-non')
+        next.toggle('dis-non')
+        ETspan.style.textDecoration = 'line-through';
+        itemLS[ETspanId - 1].isChecked = true;
+    } else if (ETC.contains('checkedButton')) {
+        const previous = ET.previousElementSibling.classList;
+        ETC.toggle('dis-non')
+        previous.toggle('dis-non')
+        ETspan.style.textDecoration = 'none'
+        itemLS[ETspanId - 1].isChecked = false;
+    } else if (ETC.contains('removeButton')) {
+        ET.parentElement.remove();
+        itemLS.splice(ETspanId - 1, 1);
+        itemLS.forEach((li, index) => li.id = index + 1);
+    }
+    saveLS(todoName,itemLS);
+}
 function clickHandler(event) {
     event.preventDefault();
     const ET = event.target;
     const ETC = ET.classList;
     const ETspan = ET.parentElement.children[2];
     const ETspanId = ETspan.id;
-    if (ETC.contains('emptyButton')) {
-        const next = ET.nextElementSibling.classList;
-        ETC.toggle('dis-non')
-        next.toggle('dis-non')
-        ETspan.style.textDecoration = 'line-through'
-        liEle_LS[ETspanId - 1].isChecked = true;
-        saveLS();
-    } else if (ETC.contains('checkedButton')) {
-        const previous = ET.previousElementSibling.classList;
-        ETC.toggle('dis-non')
-        previous.toggle('dis-non')
-        ETspan.style.textDecoration = 'none'
-        liEle_LS[ETspanId - 1].isChecked = false;
-        saveLS();
-    } else if (ETC.contains('removeButton')) {
-        ET.parentElement.remove();
-        liEle_LS.splice(ETspanId - 1, 1);
-        liEle_LS.forEach((li, index) => li.id = index + 1);
-        saveLS();
-    }
+    checkByButtons(ET, ETC, ETspan, ETspanId);
 }
-function saveLS() {
-    localStorage.setItem(TODOS, JSON.stringify(liEle_LS))
+function saveLS(listOfTodos,anArray) {
+    localStorage.setItem(listOfTodos, JSON.stringify(anArray))
 }
-function createNewList(IV) {
+function createElements(anArray, INPUTVALUE, getFromLS,listOfTodos,ulForList) {
     const li = document.createElement('li');
     li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
     <i class="fa fa-check-square-o item btn checkedButton dis-non" aria-hidden="true"></i>
-    <span class='item' id = '${liEle_LS.length + 1}'>${IV}</span>
+    <span class='item' id = '${anArray.length + 1}'>${INPUTVALUE}</span>
     <i class="fa fa-trash-o btn removeButton item" aria-hidden="true"></i>`;
     li.addEventListener('click', clickHandler)
-    ul.appendChild(li)
-    input.value = "";
+    ulForList.appendChild(li)
+    ulForList.classList.add(listOfTodos);
     const liEle = {
-        text: IV,
-        id: liEle_LS.length + 1,
+        text: INPUTVALUE,
+        id: anArray.length + 1,
         isChecked: false
     }
-    if (getLS) {
-        const newLS = JSON.parse(getLS);
+    if (getFromLS) {
+        const newLS = JSON.parse(getFromLS);
         newLS.forEach(ls => {
             if (ls.id === liEle.id) {
                 liEle.isChecked = ls.isChecked;
@@ -70,15 +72,20 @@ function createNewList(IV) {
             }
         })
     }
-    liEle_LS.push(liEle);
-    saveLS();
+    anArray.push(liEle);
+
+}
+function createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
+    createElements(anArray, INPUTVALUE, getFromLS,listOfTodos,ulForList);
+    input.value = "";
+    saveLS(listOfTodos,anArray);
 }
 function keyupHandler(event) {
     event.preventDefault()
     if (event.keyCode == 13) {
         const IV = input.value;
         if (IV) {
-            createNewList(IV);
+            createNewList(liEle_LS, IV, getLS, TODOS, ul)
         }
     }
 }
@@ -88,7 +95,7 @@ function init() {
     document.addEventListener('keyup', keyupHandler)
     if (getLS) {
         const parsedLS = JSON.parse(getLS);
-        parsedLS.forEach(ls => createNewList(ls.text));
+        parsedLS.forEach(ls => createNewList(liEle_LS,ls.text,getLS,TODOS, ul));
     }
 }
 init();
