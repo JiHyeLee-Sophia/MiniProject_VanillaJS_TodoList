@@ -4,7 +4,6 @@ const today = container.querySelector('.date');
 const btns = document.querySelectorAll('.btn');
 const ul = document.querySelector('.todos')
 const input = document.querySelector('.input')
-const getLS = localStorage.getItem(TODOS);
 let liEle_LS = [];
 
 function getDate() {
@@ -12,8 +11,8 @@ function getDate() {
     const options = { weekday: 'long', month: 'short', day: 'numeric' };
     today.innerHTML = currentDate.toLocaleDateString('en-US', options);
 }
-function checkByButtons(ET, ETC, ETspan, ETspanId){
-    const todoName=ET.parentElement.parentElement.classList[0];
+function checkByButtons(ET, ETC, ETspan, ETspanId) {
+    const todoName = ET.parentElement.parentElement.classList[0];
     const itemLS = JSON.parse(localStorage.getItem(todoName));
     if (ETC.contains('emptyButton')) {
         const next = ET.nextElementSibling.classList;
@@ -32,7 +31,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId){
         itemLS.splice(ETspanId - 1, 1);
         itemLS.forEach((li, index) => li.id = index + 1);
     }
-    saveLS(todoName,itemLS);
+    saveLS(todoName, itemLS);
 }
 function clickHandler(event) {
     event.preventDefault();
@@ -42,10 +41,10 @@ function clickHandler(event) {
     const ETspanId = ETspan.id;
     checkByButtons(ET, ETC, ETspan, ETspanId);
 }
-function saveLS(listOfTodos,anArray) {
+function saveLS(listOfTodos, anArray) {
     localStorage.setItem(listOfTodos, JSON.stringify(anArray))
 }
-function createElements(anArray, INPUTVALUE, getFromLS,listOfTodos,ulForList) {
+function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
     const li = document.createElement('li');
     li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
     <i class="fa fa-check-square-o item btn checkedButton dis-non" aria-hidden="true"></i>
@@ -59,6 +58,7 @@ function createElements(anArray, INPUTVALUE, getFromLS,listOfTodos,ulForList) {
         id: anArray.length + 1,
         isChecked: false
     }
+    //if localstorage has data, check if the check box checked
     if (getFromLS) {
         const newLS = JSON.parse(getFromLS);
         newLS.forEach(ls => {
@@ -76,26 +76,30 @@ function createElements(anArray, INPUTVALUE, getFromLS,listOfTodos,ulForList) {
 
 }
 function createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
-    createElements(anArray, INPUTVALUE, getFromLS,listOfTodos,ulForList);
+    createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList);
     input.value = "";
-    saveLS(listOfTodos,anArray);
+    saveLS(listOfTodos, anArray);
 }
 function keyupHandler(event) {
     event.preventDefault()
     if (event.keyCode == 13) {
         const IV = input.value;
         if (IV) {
+            const getLS = localStorage.getItem(TODOS);
             createNewList(liEle_LS, IV, getLS, TODOS, ul)
         }
     }
 }
 function init() {
+    let keyName = '';
     getDate();
     btns.forEach(btn => btn.addEventListener('click', clickHandler));
     document.addEventListener('keyup', keyupHandler)
-    if (getLS) {
-        const parsedLS = JSON.parse(getLS);
-        parsedLS.forEach(ls => createNewList(liEle_LS,ls.text,getLS,TODOS, ul));
-    }
+    if (localStorage.length > 0) {
+        //make a list for original list
+        const getListLS = localStorage.getItem(TODOS);
+        const parsedLS = JSON.parse(getListLS);
+        parsedLS.forEach(ls => createNewList(liEle_LS, ls.text, getListLS, TODOS, ul));
+}
 }
 init();
