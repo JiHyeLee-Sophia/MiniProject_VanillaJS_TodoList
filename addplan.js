@@ -16,18 +16,20 @@ function titleNListHandler(event) {
             ET.previousElementSibling.classList.remove('dis-non')
             ET.classList.add('dis-non') //input display none
             saveLS(newTODOS, newLiEle_LS); //save title with an empty array
-            //ET.parentElement.nextElementSibling.firstElementChild : ul
-            ET.parentElement.nextElementSibling.firstElementChild.classList.add(ETV);
-            ET.parentElement.nextElementSibling.nextElementSibling.lastElementChild.focus();
+            const main = ET.parentElement.nextElementSibling;
+            main.firstElementChild.classList.add(ETV);
+            main.nextElementSibling.lastElementChild.focus();
+            main.nextElementSibling.lastElementChild.classList.add(ETV);
         } else if (ET.classList.contains('userNewInput')) {
+            const headTitle = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerText;
             const ETV = ET.value;
-            const getnew_LS = localStorage.getItem(newTODOS);
+            const getnew_LS = localStorage.getItem(headTitle);
             let new_LS = [];
             if (getnew_LS) {
                 new_LS = JSON.parse(getnew_LS);
             }
             const thisUl = ET.parentElement.previousElementSibling.firstElementChild;
-            createNewList(new_LS, ETV, getnew_LS, newTODOS, thisUl);
+            createNewList(new_LS, ETV, getnew_LS, headTitle, thisUl);
             ET.value = '';
         }
     }

@@ -11,11 +11,10 @@ function getDate() {
     const options = { weekday: 'long', month: 'short', day: 'numeric' };
     today.innerHTML = currentDate.toLocaleDateString('en-US', options);
 }
-function checkByButtons(ET, ETC, ETspan, ETspanId) {
+function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
     const todoName = ET.parentElement.parentElement.classList[0];
     let itemLS = JSON.parse(localStorage.getItem(todoName));
     if (ETC.contains('emptyButton')) {
-        console.log(ET)
         const next = ET.nextElementSibling.classList;
         ETC.toggle('dis-non')
         next.toggle('dis-non')
@@ -39,6 +38,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId) {
             item.id=index+1;
         })
         itemLS = newItemLS;
+        anArray[clickedId-1];
     }else{
         return;
     }
@@ -50,7 +50,7 @@ function clickHandler(event) {
     const ETC = ET.classList;
     const ETspan = ET.parentElement.children[2];
     const ETspanId = ETspan.id;
-    checkByButtons(ET, ETC, ETspan, ETspanId);
+    checkByButtons(ET, ETC, ETspan, ETspanId,liEle_LS);
 }
 function saveLS(listOfTodos, anArray) {
     localStorage.setItem(listOfTodos, JSON.stringify(anArray))
