@@ -13,8 +13,9 @@ function getDate() {
 }
 function checkByButtons(ET, ETC, ETspan, ETspanId) {
     const todoName = ET.parentElement.parentElement.classList[0];
-    const itemLS = JSON.parse(localStorage.getItem(todoName));
+    let itemLS = JSON.parse(localStorage.getItem(todoName));
     if (ETC.contains('emptyButton')) {
+        console.log(ET)
         const next = ET.nextElementSibling.classList;
         ETC.toggle('dis-non')
         next.toggle('dis-non')
@@ -27,9 +28,19 @@ function checkByButtons(ET, ETC, ETspan, ETspanId) {
         ETspan.style.textDecoration = 'none'
         itemLS[ETspanId - 1].isChecked = false;
     } else if (ETC.contains('removeButton')) {
+        let newUl = ET.parentElement.parentElement;
+        const clickedId = ET.previousElementSibling.id;
         ET.parentElement.remove();
-        itemLS.splice(ETspanId - 1, 1);
-        itemLS.forEach((li, index) => li.id = index + 1);
+        for (let i = 0; i < newUl.childElementCount; i++) {
+            newUl.childNodes[i].children[2].id=i+1;
+        }
+        let newItemLS = itemLS.filter(item=>item.id!=clickedId);
+        newItemLS.forEach((item,index)=>{
+            item.id=index+1;
+        })
+        itemLS = newItemLS;
+    }else{
+        return;
     }
     saveLS(todoName, itemLS);
 }
@@ -100,6 +111,7 @@ function init() {
         const getListLS = localStorage.getItem(TODOS);
         const parsedLS = JSON.parse(getListLS);
         parsedLS.forEach(ls => createNewList(liEle_LS, ls.text, getListLS, TODOS, ul));
+    }
 }
-}
+
 init();
