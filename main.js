@@ -26,6 +26,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
         ETC.toggle('dis-non')
         next.toggle('dis-non')
         ETspan.style.textDecoration = 'line-through';
+        ETspan.style.textDecorationThickness = '2px';
         itemLS[ETspanId - 1].isChecked = true;
     } else if (ETC.contains('checkedButton')) {
         const previous = ET.previousElementSibling.classList;
