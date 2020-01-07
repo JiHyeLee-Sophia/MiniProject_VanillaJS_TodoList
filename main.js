@@ -86,6 +86,7 @@ function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) 
                 liEle.isChecked = ls.isChecked;
                 if (ls.isChecked) {
                     li.children[2].style.textDecoration = 'line-through';
+                    li.children[2].style.textDecorationThickness = '2px';
                     li.firstElementChild.classList.add('dis-non');
                     li.firstElementChild.nextElementSibling.classList.remove('dis-non')
                 }
