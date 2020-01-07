@@ -12,7 +12,14 @@ function getDate() {
     today.innerHTML = currentDate.toLocaleDateString('en-US', options);
 }
 function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
-    const todoName = ET.parentElement.parentElement.classList[0];
+    let todoName = '';
+    const originalTodoList = ET.parentElement.parentElement.classList[0];
+    if(originalTodoList){
+        todoName=originalTodoList;
+    }else{
+        todoName=ET.parentElement.parentElement.parentElement.previousElementSibling.firstElementChild.innerText;
+    };
+
     let itemLS = JSON.parse(localStorage.getItem(todoName));
     if (ETC.contains('emptyButton')) {
         const next = ET.nextElementSibling.classList;
@@ -30,6 +37,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
         let newUl = ET.parentElement.parentElement;
         const clickedId = ET.previousElementSibling.id;
         ET.parentElement.remove();
+        //set id
         for (let i = 0; i < newUl.childElementCount; i++) {
             newUl.childNodes[i].children[2].id=i+1;
         }

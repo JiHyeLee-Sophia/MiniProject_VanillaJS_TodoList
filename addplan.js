@@ -10,18 +10,28 @@ function titleNListHandler(event) {
     if (event.keyCode == 13) {
         const ET = event.target;
         if (ET.classList.contains('titleInput')) { //title input
+            const ETP = ET.previousElementSibling;
             const ETV = ET.value;
-            newTODOS = ETV;
-            ET.previousElementSibling.innerText = ETV; //h2
-            ET.previousElementSibling.classList.remove('dis-non')
+            newTODOS = ETV; //user new input
+            // for(let i =0; i<localStorage.length;i++){
+            //     if(localStorage.key(i)===ETP.innerText){
+            //         const thisItems = localStorage.getItem(ETP.innerText);
+            //         const parsedThisItems = JSON.parse(thisItems);
+            //      localStorage.setItem(newTODOS,JSON.stringify(parsedThisItems))
+            //         // localStorage.removeItem(ETP.innerText);
+            //         break;
+            //     }
+            // }
+            ETP.innerText = ETV; //h2
+            ETP.classList.remove('dis-non')
             ET.classList.add('dis-non') //input display none
             saveLS(newTODOS, newLiEle_LS); //save title with an empty array
             const main = ET.parentElement.nextElementSibling;
-            ETV.
             // main.firstElementChild.classList.add(ETV);
             main.nextElementSibling.lastElementChild.focus();
             main.nextElementSibling.lastElementChild.classList.add(ETV);
-        } else if (ET.classList.contains('userNewInput')) {
+        } else 
+        if (ET.classList.contains('userNewInput')) {
             const head = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild;
             const headTitle = head.innerText;
             const ETV = ET.value;
@@ -32,8 +42,8 @@ function titleNListHandler(event) {
             }
             if (headTitle === '') {
                 const headStyle = head.nextElementSibling.style;
-                    headStyle.backgroundColor = 'rgba(255, 0, 0, 0.627)';
-                    headStyle.borderRadius = '8px';
+                headStyle.backgroundColor = 'rgba(255, 0, 0, 0.627)';
+                headStyle.borderRadius = '8px';
                 function preStyle() {
                     headStyle.backgroundColor = 'rgba(0,0,0,0)';
                     headStyle.borderRadius = '0';
@@ -49,17 +59,19 @@ function titleNListHandler(event) {
 function newBtnsHandler(event) {
     event.preventDefault();
     const ET = event.target;
-    if (ET.classList.contains('editBtn')) {
-        const ETP = ET.previousElementSibling;
-        ETP.classList.remove('dis-non');
-        ETP.focus();
-        ETP.previousElementSibling.classList.add('dis-non');
-        // saveLS()*******
-    } else if (ET.classList.contains('delBtn')) {
+    // if (ET.classList.contains('editBtn')) {
+    //     const ETP = ET.previousElementSibling;
+    //     ETP.classList.remove('dis-non');
+    //     ETP.focus();
+    //     ETP.previousElementSibling.classList.add('dis-non');
+    //     // saveLS()*******
+    //     console.log(ETP)
+    // } else 
+    if (ET.classList.contains('delBtn')) {
         const ETP = ET.parentElement;
         ETP.parentElement.remove();
         localStorage.removeItem(ETP.firstElementChild.innerText);
-    } else {
+    }else {
         return;
     }
 }
@@ -72,7 +84,7 @@ function createDiv() {
     div.innerHTML = `<header>
     <h2 class="title dis-non"></h2>
     <input type='text' class='titleInput ${ulCnt}' placeholder='Press enter after type title'>
-    <i class="fa fa-pencil-square-o btn editBtn" aria-hidden="true"></i>
+    <!--<i class="fa fa-pencil-square-o btn editBtn" aria-hidden="true"></i>-->
     <i class="fa fa-minus-square-o btn delBtn" aria-hidden="true"></i>
     </header>
     <main>
