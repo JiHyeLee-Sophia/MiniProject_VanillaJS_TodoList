@@ -92,6 +92,7 @@ function createDiv() {
     <i class="fa fa-plus" aria-hidden="true"></i>
     <input type="text" class='userNewInput ${ulCnt}' placeholder="add to-do here" />
     </footer>`;
+    div.classList.add('box-sha');
     div.addEventListener('click', newBtnsHandler)
     newAddedList.appendChild(div);
 }

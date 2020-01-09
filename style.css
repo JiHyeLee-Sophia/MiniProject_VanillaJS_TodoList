@@ -15,7 +15,6 @@ body{
     color:white;
     background-color: rgba(34, 33, 33, 0.534);
     font-family: sans-serif;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     width:400px;
     height: 250px;
     border-radius: 15px;
@@ -91,11 +90,11 @@ footer input,
     margin-left: 1rem;
     background-color: rgba(0,0,0,0);
     /* background-color: red; */
+    color:white;
     border: 0;
     outline: 0;
     height:2rem;
     font-size: 1.3rem;
-    color:white;
     width:300px;
 }
 footer input::placeholder,
@@ -120,6 +119,9 @@ footer input::placeholder,
 }
 .plusIcon{
     margin-left: 5px;
+}
+.box-sha{
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 .editBtn,
 .delBtn{
