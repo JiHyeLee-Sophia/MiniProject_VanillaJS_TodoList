@@ -118,7 +118,7 @@ function init() {
     document.addEventListener('keyup', keyupHandler)
     if (getLS) {
         //make a list for original list
-        const parsedLS = JSON.parse(getListLS);
+        const parsedLS = JSON.parse(getLS);
         parsedLS.forEach(ls => createNewList(liEle_LS, ls.text, getLS, TODOS, ul));
     }
 }
