@@ -1,6 +1,7 @@
 let newTODOS = '';
 let newLiEle_LS = [];
 let emptyLi_LS = [];
+let previousTitle ='';
 const plusIcon = document.querySelector('#plusIcon');
 const newAddedList = document.querySelector('.newAddedList');
 
@@ -12,26 +13,23 @@ function titleNListHandler(event) {
         if (ET.classList.contains('titleInput')) { //title input
             const ETP = ET.previousElementSibling;
             const ETV = ET.value;
+            if(ETV===''){
+                return;
+            }
             newTODOS = ETV; //user new input
-            // for(let i =0; i<localStorage.length;i++){
-            //     if(localStorage.key(i)===ETP.innerText){
-            //         const thisItems = localStorage.getItem(ETP.innerText);
-            //         const parsedThisItems = JSON.parse(thisItems);
-            //      localStorage.setItem(newTODOS,JSON.stringify(parsedThisItems))
-            //         // localStorage.removeItem(ETP.innerText);
-            //         break;
-            //     }
-            // }
-            ETP.innerText = ETV; //h2
+            if(previousTitle){
+                const listsLS = localStorage.getItem(previousTitle);
+                localStorage.setItem(newTODOS,listsLS)
+                localStorage.removeItem(previousTitle)
+            }else{
+                const anEmptyArray = '[]';
+                localStorage.setItem(newTODOS,anEmptyArray)
+                
+            }
+            ETP.innerText=newTODOS;
             ETP.classList.remove('dis-non')
-            ET.classList.add('dis-non') //input display none
-            saveLS(newTODOS, newLiEle_LS); //save title with an empty array
-            const main = ET.parentElement.nextElementSibling;
-            // main.firstElementChild.classList.add(ETV);
-            main.nextElementSibling.lastElementChild.focus();
-            main.nextElementSibling.lastElementChild.classList.add(ETV);
-        } else
-            if (ET.classList.contains('userNewInput')) {
+            ET.classList.add('dis-non')
+        } else if (ET.classList.contains('userNewInput')) {
                 const head = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild;
                 const headTitle = head.innerText;
                 const ETV = ET.value;
@@ -60,14 +58,13 @@ function titleNListHandler(event) {
 function newBtnsHandler(event) {
     event.preventDefault();
     const ET = event.target;
-    // if (ET.classList.contains('editBtn')) {
-    //     const ETP = ET.previousElementSibling;
-    //     ETP.classList.remove('dis-non');
-    //     ETP.focus();
-    //     ETP.previousElementSibling.classList.add('dis-non');
-    //     // saveLS()*******
-    //     console.log(ETP)
-    // } else 
+    if (ET.classList.contains('editBtn')) {
+        const ETP = ET.previousElementSibling;
+        ETP.classList.remove('dis-non');
+        ETP.focus();
+        ETP.previousElementSibling.classList.add('dis-non');
+        previousTitle= ETP.previousElementSibling.innerText;
+    } else 
     if (ET.classList.contains('delBtn')) {
         const ETP = ET.parentElement;
         ETP.parentElement.remove();
@@ -85,7 +82,7 @@ function createDiv() {
     div.innerHTML = `<header>
     <h2 class="title dis-non"></h2>
     <input type='text' class='titleInput ${ulCnt}' placeholder='Press enter after type title'>
-    <!--<i class="fa fa-pencil-square-o btn editBtn" aria-hidden="true"></i>-->
+    <i class="fa fa-pencil-square-o btn editBtn" aria-hidden="true"></i>
     <i class="fa fa-minus-square-o btn delBtn" aria-hidden="true"></i>
     </header>
     <main>
@@ -108,7 +105,7 @@ function addIconEvent() {
 }
 function initContainers() {
     let keyNames = [];
-    if (localStorage.length > 1) {
+    if (localStorage.length > 0) {
         //get key names && create Div except main todo list
         for (let i = 0; i < localStorage.length; i++) {
             if (localStorage.key(i) !== 'todos') {

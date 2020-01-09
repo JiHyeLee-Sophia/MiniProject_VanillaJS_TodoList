@@ -2,8 +2,9 @@ const TODOS = 'todos';
 const container = document.querySelector('.container');
 const today = container.querySelector('.date');
 const btns = document.querySelectorAll('.btn');
-const ul = document.querySelector('.todos')
-const input = document.querySelector('.input')
+const ul = document.querySelector('.todos');
+const input = document.querySelector('.input');
+const getLS = localStorage.getItem(TODOS);
 let liEle_LS = [];
 
 function getDate() {
@@ -106,7 +107,6 @@ function keyupHandler(event) {
     if (event.keyCode == 13) {
         const IV = input.value;
         if (IV) {
-            const getLS = localStorage.getItem(TODOS);
             createNewList(liEle_LS, IV, getLS, TODOS, ul)
         }
     }
@@ -116,11 +116,10 @@ function init() {
     getDate();
     btns.forEach(btn => btn.addEventListener('click', clickHandler));
     document.addEventListener('keyup', keyupHandler)
-    if (localStorage.length > 0) {
+    if (getLS) {
         //make a list for original list
-        const getListLS = localStorage.getItem(TODOS);
         const parsedLS = JSON.parse(getListLS);
-        parsedLS.forEach(ls => createNewList(liEle_LS, ls.text, getListLS, TODOS, ul));
+        parsedLS.forEach(ls => createNewList(liEle_LS, ls.text, getLS, TODOS, ul));
     }
 }
 
