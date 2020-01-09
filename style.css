@@ -95,6 +95,7 @@ footer input,
     height:2rem;
     font-size: 1.3rem;
     color:white;
+    width:80%;
 }
 footer input::placeholder,
 .titleInput::placeholder{
