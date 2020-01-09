@@ -30,30 +30,31 @@ function titleNListHandler(event) {
             // main.firstElementChild.classList.add(ETV);
             main.nextElementSibling.lastElementChild.focus();
             main.nextElementSibling.lastElementChild.classList.add(ETV);
-        } else 
-        if (ET.classList.contains('userNewInput')) {
-            const head = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild;
-            const headTitle = head.innerText;
-            const ETV = ET.value;
-            const getnew_LS = localStorage.getItem(headTitle);
-            let new_LS = [];
-            if (getnew_LS) {
-                new_LS = JSON.parse(getnew_LS);
-            }
-            if (headTitle === '') {
-                const headStyle = head.nextElementSibling.style;
-                headStyle.backgroundColor = 'rgba(255, 0, 0, 0.627)';
-                headStyle.borderRadius = '8px';
-                function preStyle() {
-                    headStyle.backgroundColor = 'rgba(0,0,0,0)';
-                    headStyle.borderRadius = '0';
+        } else
+            if (ET.classList.contains('userNewInput')) {
+                const head = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild;
+                const headTitle = head.innerText;
+                const ETV = ET.value;
+                const getnew_LS = localStorage.getItem(headTitle);
+                let new_LS = [];
+                if (getnew_LS) {
+                    new_LS = JSON.parse(getnew_LS);
                 }
-                setTimeout(preStyle, 2000);
+                if (headTitle === '') {
+                    const headStyle = head.nextElementSibling.style;
+                    headStyle.backgroundColor = 'rgba(255, 0, 0, 0.627)';
+                    headStyle.borderRadius = '8px';
+                    function preStyle() {
+                        headStyle.backgroundColor = 'rgba(0,0,0,0)';
+                        headStyle.borderRadius = '0';
+                    }
+                    setTimeout(preStyle, 2000);
+                } else {
+                    const thisUl = ET.parentElement.previousElementSibling.firstElementChild;
+                    createNewList(new_LS, ETV, getnew_LS, headTitle, thisUl);
+                    ET.value = '';
+                }
             }
-            const thisUl = ET.parentElement.previousElementSibling.firstElementChild;
-            createNewList(new_LS, ETV, getnew_LS, headTitle, thisUl);
-            ET.value = '';
-        }
     }
 }
 function newBtnsHandler(event) {
@@ -71,7 +72,7 @@ function newBtnsHandler(event) {
         const ETP = ET.parentElement;
         ETP.parentElement.remove();
         localStorage.removeItem(ETP.firstElementChild.innerText);
-    }else {
+    } else {
         return;
     }
 }
