@@ -90,12 +90,13 @@ footer input,
 .titleInput{
     margin-left: 1rem;
     background-color: rgba(0,0,0,0);
+    /* background-color: red; */
     border: 0;
     outline: 0;
     height:2rem;
     font-size: 1.3rem;
     color:white;
-    width:80%;
+    width:300px;
 }
 footer input::placeholder,
 .titleInput::placeholder{
