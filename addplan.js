@@ -64,6 +64,7 @@ function newBtnsHandler(event) {
         ETP.focus();
         ETP.previousElementSibling.classList.add('dis-non');
         previousTitle= ETP.previousElementSibling.innerText;
+        ETP.placeholder = previousTitle;
     } else 
     if (ET.classList.contains('delBtn')) {
         const ETP = ET.parentElement;
