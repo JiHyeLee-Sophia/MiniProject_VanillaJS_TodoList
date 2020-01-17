@@ -81,7 +81,7 @@ function createDiv() {
     div.id = ulCnt;
     div.classList.add('container');
     div.innerHTML = `<header>
-    <h2 class="title dis-non"></h2>
+    <h2 class="title dis-non ${ulCnt}"></h2>
     <input type='text' class='titleInput ${ulCnt}' placeholder='Press enter after type title'>
     <i class="fa fa-pencil-square-o btn editBtn" aria-hidden="true"></i>
     <i class="fa fa-minus-square-o btn delBtn" aria-hidden="true"></i>
