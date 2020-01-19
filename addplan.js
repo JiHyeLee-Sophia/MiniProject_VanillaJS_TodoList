@@ -7,9 +7,9 @@ const newAddedList = document.querySelector('.newAddedList');
 
 function titleNListHandler(event) {
     event.preventDefault()
-    //enter keyup event
     if (event.keyCode == 13) {
         const ET = event.target;
+        //set title by user
         if (ET.classList.contains('titleInput')) { //title input
             const ETP = ET.previousElementSibling;
             const ETV = ET.value;
@@ -17,6 +17,7 @@ function titleNListHandler(event) {
                 return;
             }
             newTODOS = ETV; //user new input
+            //if previous title exists
             if(previousTitle){
                 const listsLS = localStorage.getItem(previousTitle);
                 localStorage.setItem(newTODOS,listsLS)
@@ -24,29 +25,31 @@ function titleNListHandler(event) {
             }else{
                 const anEmptyArray = '[]';
                 localStorage.setItem(newTODOS,anEmptyArray)
-                
             }
             ETP.innerText=newTODOS;
             ETP.classList.remove('dis-non')
             ET.classList.add('dis-non')
+
+        //add list by user
         } else if (ET.classList.contains('userNewInput')) {
                 const head = ET.parentElement.previousElementSibling.previousElementSibling.firstElementChild;
                 const headTitle = head.innerText;
                 const ETV = ET.value;
                 const getnew_LS = localStorage.getItem(headTitle);
                 let new_LS = [];
+                //if previous list
                 if (getnew_LS) {
                     new_LS = JSON.parse(getnew_LS);
                 }
+                //if title hasn't been typed
                 if (headTitle === '') {
                     const headStyle = head.nextElementSibling.style;
                     headStyle.backgroundColor = 'rgba(255, 0, 0, 0.627)';
                     headStyle.borderRadius = '8px';
-                    function preStyle() {
+                    setTimeout(() => {
                         headStyle.backgroundColor = 'rgba(0,0,0,0)';
                         headStyle.borderRadius = '0';
-                    }
-                    setTimeout(preStyle, 2000);
+                    }, 2000);
                 } else {
                     const thisUl = ET.parentElement.previousElementSibling.firstElementChild;
                     createNewList(new_LS, ETV, getnew_LS, headTitle, thisUl);
@@ -58,6 +61,7 @@ function titleNListHandler(event) {
 function newBtnsHandler(event) {
     event.preventDefault();
     const ET = event.target;
+    //user click title edit button
     if (ET.classList.contains('editBtn')) {
         const ETP = ET.previousElementSibling;
         ETP.classList.remove('dis-non');
@@ -65,8 +69,8 @@ function newBtnsHandler(event) {
         ETP.previousElementSibling.classList.add('dis-non');
         previousTitle= ETP.previousElementSibling.innerText;
         ETP.placeholder = previousTitle;
-    } else 
-    if (ET.classList.contains('delBtn')) {
+    //user click delete button
+    } else if (ET.classList.contains('delBtn')) {
         const ETP = ET.parentElement;
         ETP.parentElement.remove();
         localStorage.removeItem(ETP.firstElementChild.innerText);
@@ -74,6 +78,7 @@ function newBtnsHandler(event) {
         return;
     }
 }
+//create div to have list
 function createDiv() {
     const div = document.createElement('div');
     const ulCnt = document.querySelectorAll('main ul').length;
@@ -83,8 +88,8 @@ function createDiv() {
     div.innerHTML = `<header>
     <h2 class="title dis-non ${ulCnt}"></h2>
     <input type='text' class='titleInput ${ulCnt}' placeholder='Press enter after type title'>
-    <i class="fa fa-pencil-square-o btn editBtn" aria-hidden="true"></i>
-    <i class="fa fa-minus-square-o btn delBtn" aria-hidden="true"></i>
+    <i class="fa fa-pencil-square-o editBtn" aria-hidden="true"></i>
+    <i class="fa fa-minus-square-o delBtn" aria-hidden="true"></i>
     </header>
     <main>
     <ul id='${ulCnt}'></ul>
@@ -97,16 +102,20 @@ function createDiv() {
     div.addEventListener('click', newBtnsHandler)
     newAddedList.appendChild(div);
 }
+//if user click calendar button
 function iconEventHandler(event) {
     event.preventDefault();
     createDiv();
 }
 function addIconEvent() {
+    //calendar icon
     plusIcon.addEventListener('click', iconEventHandler)
+    //event for 'enter'
     document.addEventListener('keyup', titleNListHandler)
 }
 function initContainers() {
     let keyNames = [];
+    //if localStorage has data
     if (localStorage.length > 0) {
         //get key names && create Div except main todo list
         for (let i = 0; i < localStorage.length; i++) {
@@ -115,7 +124,7 @@ function initContainers() {
                 createDiv();
             }
         }
-        //make a list for every key name
+        //make lists for every key name
         keyNames.forEach((list, index) => {
             //additional list
             const getListLS = localStorage.getItem(list);
@@ -123,7 +132,7 @@ function initContainers() {
             const newUl = document.querySelectorAll('ul');
             newUl.forEach(ul => {
                 if (ul.id == index + 1) {
-                    //setting the title
+                    //set the title
                     const ulTitle = ul.parentElement.previousElementSibling.firstElementChild;
                     ulTitle.innerText = list;
                     newTODOS = list;
@@ -133,7 +142,7 @@ function initContainers() {
                     let newListArray = [];
                     parsedLS.forEach(ls => {
                         createNewList(newListArray, ls.text, getListLS, list, ul)
-                        // createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
+                        // createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList)
                     });
                 }
             })

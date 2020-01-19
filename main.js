@@ -7,11 +7,13 @@ const input = document.querySelector('.input');
 const getLS = localStorage.getItem(TODOS);
 let liEle_LS = [];
 
+//get current date for main todolist title
 function getDate() {
     const currentDate = new Date();
     const options = { weekday: 'long', month: 'short', day: 'numeric' };
     today.innerHTML = currentDate.toLocaleDateString('en-US', options);
 }
+//empty, checked, removebox button event for whole lists(not just original)
 function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
     let todoName = '';
     const originalTodoList = ET.parentElement.parentElement.classList[0];
@@ -22,6 +24,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
     };
 
     let itemLS = JSON.parse(localStorage.getItem(todoName));
+    //if user click emptybox button
     if (ETC.contains('emptyButton')) {
         const next = ET.nextElementSibling.classList;
         ETC.toggle('dis-non')
@@ -29,17 +32,19 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
         ETspan.style.textDecoration = 'line-through';
         ETspan.style.textDecorationThickness = '2px';
         itemLS[ETspanId - 1].isChecked = true;
+    //if user click checkedbox button
     } else if (ETC.contains('checkedButton')) {
         const previous = ET.previousElementSibling.classList;
         ETC.toggle('dis-non')
         previous.toggle('dis-non')
         ETspan.style.textDecoration = 'none'
         itemLS[ETspanId - 1].isChecked = false;
+    //if user click removebox button
     } else if (ETC.contains('removeButton')) {
         let newUl = ET.parentElement.parentElement;
         const clickedId = ET.previousElementSibling.id;
         ET.parentElement.remove();
-        //set id
+        //set id again for whole ul
         for (let i = 0; i < newUl.childElementCount; i++) {
             newUl.childNodes[i].children[2].id=i+1;
         }
@@ -65,8 +70,8 @@ function clickHandler(event) {
 function saveLS(listOfTodos, anArray) {
     localStorage.setItem(listOfTodos, JSON.stringify(anArray))
 }
-        // empty or filled array, inputV, checkForCheckedBox, ul to add class and list
-function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
+// (empty or filled array, inputValue, checkForCheckedBox, ul to add class and list)
+function createElements(anArray, INPUTVALUE, getFromLS, ulForList) {
     const li = document.createElement('li');
     li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
     <i class="fa fa-check-square-o item btn checkedButton dis-non" aria-hidden="true"></i>
@@ -74,13 +79,12 @@ function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) 
     <i class="fa fa-trash-o btn removeButton item" aria-hidden="true"></i>`;
     li.addEventListener('click', clickHandler)
     ulForList.appendChild(li)
-    // ulForList.classList.add(listOfTodos);
     const liEle = {
         text: INPUTVALUE,
         id: anArray.length + 1,
         isChecked: false
     }
-    //if localstorage has data, check if the check box checked
+    //if localstorage has data, check if the check box is checked
     if (getFromLS) {
         const newLS = JSON.parse(getFromLS);
         newLS.forEach(ls => {
@@ -98,12 +102,13 @@ function createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) 
     anArray.push(liEle);
 }
 function createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
-    createElements(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList);
+    createElements(anArray, INPUTVALUE, getFromLS, ulForList);
     input.value = "";
     saveLS(listOfTodos, anArray);
 }
 function keyupHandler(event) {
     event.preventDefault()
+    //'enter' event for original list
     if (event.keyCode == 13) {
         const IV = input.value;
         if (IV) {
@@ -112,7 +117,6 @@ function keyupHandler(event) {
     }
 }
 function init() {
-    let keyName = '';
     getDate();
     btns.forEach(btn => btn.addEventListener('click', clickHandler));
     document.addEventListener('keyup', keyupHandler)
