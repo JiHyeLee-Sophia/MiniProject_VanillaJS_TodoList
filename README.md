@@ -9,4 +9,4 @@ You can have new list name, also can edit later.
 Plan your goal not just for today.
 Plan for this month, next month and for the whole year!
 
-The data will be saved in Local Storage on your web. You can check by pressing 'f5' button, data still exists. 
+The data will be saved in Local Storage. 
