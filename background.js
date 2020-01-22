@@ -1,5 +1,6 @@
+
 function getNumber(){
-    const randomNum = Math.floor(Math.random()*6);
+    const randomNum = Math.floor(Math.random()*117); 
     return randomNum;
 }
 function init(){
@@ -13,3 +14,4 @@ function rightClickHandler(event){
 }
 document.addEventListener('contextmenu', rightClickHandler)
 init();
+setInterval(() =>init(), 300000);
