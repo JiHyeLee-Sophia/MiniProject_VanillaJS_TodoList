@@ -1,6 +1,6 @@
 
 function getNumber(){
-    const randomNum = Math.floor(Math.random()*117); 
+    const randomNum = Math.floor(Math.random()*88); 
     return randomNum;
 }
 function init(){
