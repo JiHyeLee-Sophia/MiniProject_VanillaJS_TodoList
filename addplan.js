@@ -22,6 +22,7 @@ function titleNListHandler(event) {
                 const listsLS = localStorage.getItem(previousTitle);
                 localStorage.setItem(newTODOS,listsLS)
                 localStorage.removeItem(previousTitle)
+            //if not
             }else{
                 const anEmptyArray = '[]';
                 localStorage.setItem(newTODOS,anEmptyArray)
