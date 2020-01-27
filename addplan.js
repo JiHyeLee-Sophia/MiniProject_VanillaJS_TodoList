@@ -108,7 +108,7 @@ function iconEventHandler(event) {
     event.preventDefault();
     createDiv();
 }
-function addIconEvent() {
+function plusIconEvent() {
     //calendar icon
     plusIcon.addEventListener('click', iconEventHandler)
     //event for 'enter'
@@ -120,7 +120,7 @@ function initContainers() {
     if (localStorage.length > 0) {
         //get key names && create Div except main todo list
         for (let i = 0; i < localStorage.length; i++) {
-            if (localStorage.key(i) !== 'todos') {
+            if (localStorage.key(i) !== 'todos'&& localStorage.key(i) !== 'color') {
                 keyNames.push(localStorage.key(i));
                 createDiv();
             }
@@ -151,5 +151,5 @@ function initContainers() {
     }
 }
 initContainers();
-addIconEvent();
+plusIconEvent();
 

@@ -1,44 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
 
     <title>Plan Your Day</title>
-</head>
+  </head>
 
-<body>
-    <div id='basicScreen'>
-        <div class="container box-sha" id='original'>
-            <header>
-                <!-- background && date  -->
-                <h2 class="date"></h2>
-            </header>
-            <main>
-                <!-- todoList -->
-                <ul class="todos" id=0></ul>
-            </main>
-            <footer>
-                <!-- add to do -->
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                <input type="text" class='input' placeholder="Press enter after type here" />
-            </footer>
+  <body>
+    <div id="basicScreen">
+      <div class="container box-sha" id="original">
+        <header>
+          <!-- background && date  -->
+          <h2 class="date"></h2>
+        </header>
+        <main>
+          <!-- todoList -->
+          <ul class="todos" id="0"></ul>
+        </main>
+        <footer>
+          <!-- add to do -->
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          <input
+            type="text"
+            class="input"
+            placeholder="Press enter after type here"
+          />
+        </footer>
+      </div>
+      <section class="additionalOption">
+        <div id="plusIcon" class="box-sha">
+          <i class="fa fa-calendar-plus-o plusIcon" aria-hidden="true"></i>
         </div>
-        <div id='plusIcon' class='box-sha'>
-            <i class="fa fa-calendar-plus-o plusIcon" aria-hidden="true"></i>
+        <div id="themeIcon" class="box-sha">
+          <i class="fa fa-paint-brush themeIcon" aria-hidden="true"></i>
+          <div
+            class="themeColor_color"
+            style="background-color: rgba(145, 153, 196, 0.534)"
+          ></div>
+          <div
+            class="themeColor_color"
+            style="background-color: rgba(184, 133, 159, 0.534)"
+          ></div>
+          <div
+            class="themeColor_color"
+            style="background-color: rgba(34, 33, 33, 0.534)"
+          ></div>
         </div>
+      </section>
     </div>
-    <div class='newAddedList'></div>
+    <div class="newAddedList"></div>
     <div>
-        <h5 class='message'>All pictures were taken by JI HYE LEE</h5>
+      <h5 class="message">All pictures were taken by JI HYE LEE</h5>
     </div>
     <script src="main.js"></script>
     <script src="background.js"></script>
     <script src="addplan.js"></script>
-</body>
-
+    <script src="theme.js"></script>
+  </body>
 </html>
