@@ -1,7 +1,4 @@
 const TODOS = 'todos';
-const container = document.querySelector('.container');
-const today = container.querySelector('.date');
-const btns = document.querySelectorAll('.btn');
 const ul = document.querySelector('.todos');
 const input = document.querySelector('.input');
 const getLS = localStorage.getItem(TODOS);
@@ -11,6 +8,8 @@ let liEle_LS = [];
 function getDate() {
     const currentDate = new Date();
     const options = { weekday: 'long', month: 'short', day: 'numeric' };
+    const container = document.querySelector('.container');
+    const today = container.querySelector('.date');
     today.innerHTML = currentDate.toLocaleDateString('en-US', options);
 }
 //empty, checked, removebox button event for whole lists(not just original)
@@ -18,7 +17,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
     let todoName = '';
     const code = ET.parentElement.className;
     if(code==='code0'){
-        todoName='todos';
+        todoName=TODOS;
     }else{
         todoName=document.querySelector(`div.${code} h2`).innerText;
     };
@@ -116,6 +115,8 @@ function keyupHandler(event) {
     }
 }
 function init() {
+    const btns = document.querySelectorAll('.btn');
+
     getDate();
     btns.forEach(btn => btn.addEventListener('click', clickHandler));
     document.addEventListener('keyup', keyupHandler)
