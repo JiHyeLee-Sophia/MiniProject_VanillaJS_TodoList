@@ -85,7 +85,7 @@ function createDiv() {
     const ulCnt = document.querySelectorAll('main ul').length;
     //set div id
     div.id = ulCnt;
-    div.classList.add('container');
+    div.classList.add('container', `code${ulCnt}`);
     div.innerHTML = `<header>
     <h2 class="title dis-non ${ulCnt}"></h2>
     <input type='text' class='titleInput ${ulCnt}' placeholder='Press enter after type title'>

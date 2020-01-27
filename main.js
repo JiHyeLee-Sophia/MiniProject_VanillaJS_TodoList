@@ -16,11 +16,11 @@ function getDate() {
 //empty, checked, removebox button event for whole lists(not just original)
 function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
     let todoName = '';
-    const originalTodoList = ET.parentElement.parentElement.classList[0];
-    if(originalTodoList){
-        todoName=originalTodoList;
+    const code = ET.parentElement.className;
+    if(code==='code0'){
+        todoName='todos';
     }else{
-        todoName=ET.parentElement.parentElement.parentElement.previousElementSibling.firstElementChild.innerText;
+        todoName=document.querySelector(`div.${code} h2`).innerText;
     };
 
     let itemLS = JSON.parse(localStorage.getItem(todoName));
@@ -49,9 +49,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
             newUl.childNodes[i].children[2].id=i+1;
         }
         let newItemLS = itemLS.filter(item=>item.id!=clickedId);
-        newItemLS.forEach((item,index)=>{
-            item.id=index+1;
-        })
+        newItemLS.forEach((item,index)=>item.id=index+1)
         itemLS = newItemLS;
         anArray[clickedId-1];
     }else{
@@ -73,6 +71,7 @@ function saveLS(listOfTodos, anArray) {
 // (empty or filled array, inputValue, checkForCheckedBox, ul to add class and list)
 function createElements(anArray, INPUTVALUE, getFromLS, ulForList) {
     const li = document.createElement('li');
+    li.classList.add(`code${ulForList.id}`)
     li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
     <i class="fa fa-check-square-o item btn checkedButton dis-non" aria-hidden="true"></i>
     <span class='item' id = '${anArray.length + 1}'>${INPUTVALUE}</span>
