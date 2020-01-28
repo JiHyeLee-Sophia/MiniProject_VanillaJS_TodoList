@@ -147,9 +147,15 @@ footer input::placeholder,
 #plusIcon:active,
 .editBtn:active,
 .delBtn:active,
-#themeIcon:active,
-.btn:active {
+.btn:active{
   transform: scale(0.95);
+}
+#themeIcon:hover{
+  cursor: default;
+}
+.themeColor_color:hover,
+.themeIcon:hover{
+  cursor: pointer;
 }
 .newAddedList {
   box-sizing: border-box;

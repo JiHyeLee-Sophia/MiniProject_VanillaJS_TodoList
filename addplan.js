@@ -98,6 +98,11 @@ function createDiv() {
     <i class="fa fa-plus" aria-hidden="true"></i>
     <input type="text" class='userNewInput code${ulCnt}' placeholder="add to-do here" />
     </footer>`;
+  //if user changed theme color
+  const getColorLS = localStorage.getItem("color");
+  if (getColorLS) {
+    div.style.backgroundColor = getColorLS;
+  }
   div.classList.add("box-sha");
   div.addEventListener("click", newBtnsHandler);
   newAddedList.appendChild(div);
