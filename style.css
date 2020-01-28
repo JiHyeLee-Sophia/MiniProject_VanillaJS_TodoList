@@ -99,6 +99,7 @@ footer input,
 footer input::placeholder,
 .titleInput::placeholder {
   opacity: 1;
+  color:white;
   font-size: 1.3rem;
   text-decoration: underline;
 }
