@@ -1,40 +1,64 @@
 @import "reset.css";
+html {
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif; 
+}
 body {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
   align-items: center;
-  overflow: auto;
+  align-content: center;
 }
 #basicScreen {
+  justify-self: center;
   display: flex;
+  flex-wrap: nowrap;
+  /* background-color: lawngreen; */
+}
+.newAddedList {
+  width:100%;
+  grid-gap: 50px;
+  /* background-color: lightcoral; */
 }
 .container {
   display: flex;
   flex-direction: column;
   color: white;
-  background-color:  rgba(34, 33, 33, 0.534);
-  font-family: sans-serif;
+  background-color: rgba(34, 33, 33, 0.534);
   width: 400px;
   height: 250px;
   border-radius: 15px;
 }
+
 #original {
   grid-row: 1/3;
   height: 650px;
-  margin-left: 20px;
+}
+#original header{
+  height: 20%;
 }
 header {
-  height: 20%;
+  height:20%;
   display: flex;
   align-items: flex-end;
 }
+.newAddedList header{
+  max-height:40%;
+  align-items: center;
+}
 #original header h2,
-.title {
+#original .title {
   width: 100%;
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 0.3rem;
+}
+.newAddedList .title{
+  width: 100%;
+  font-size: 1.5rem;
 }
 .newAddedList header h2 {
   text-align: left;
@@ -42,32 +66,40 @@ header {
 }
 .newAddedList header h2,
 .newAddedList .titleInput {
-  width: 86%;
+  width: 80%;
 }
 .delBtn,
 .editBtn {
   font-size: 1.5rem;
-  margin: 5px;
+  margin-right: 10px;
+  margin-bottom: 5px;
 }
 main {
-  padding: 1rem;
   background-color: rgba(245, 245, 245, 0.747);
-  height: 70%;
+  height: 75%;
   font-size: 1.3rem;
   color: rgb(82, 76, 77);
   overflow: auto;
+  padding:5px;
 }
 ul li {
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
-  padding: 10px;
+  grid-template-columns: 1.3fr 8fr 1.3fr;
+  padding:.2rem;
 }
 .item {
   cursor: pointer;
+  /* background-color: lightskyblue; */
+}
+.btn{
+  /* background-color: yellow; */
+  justify-self: center;
+  padding:5px 10px;
 }
 .item:nth-child(3) {
-  overflow: visible;
-  cursor: context-menu;
+  cursor: context-menu;  
+  align-self: center;
+  line-height: 1.7rem;
 }
 .fa-trash-o {
   justify-self: self-end;
@@ -99,7 +131,7 @@ footer input,
 footer input::placeholder,
 .titleInput::placeholder {
   opacity: 1;
-  color:white;
+  color: white;
   font-size: 1.3rem;
   text-decoration: underline;
 }
@@ -116,27 +148,27 @@ footer input::placeholder,
   display: flex;
   justify-content: center;
   align-items: center;
-  margin:10px;
+  margin: 10px;
 }
-#themeIcon{
+#themeIcon {
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  transition : height .5s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  transition: height 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
-.themeIcon{
+.themeIcon {
   font-size: smaller;
-  height:40px;
-  width:100%;
+  height: 40px;
+  width: 100%;
   text-align: center;
-  padding:20px 0;
+  padding: 20px 0;
 }
-.themeColor_color{
-  width:40px;
-  height:40px;
+.themeColor_color {
+  width: 40px;
+  height: 40px;
   border-radius: 15px;
-  margin:5px;
+  margin: 5px;
 }
 .box-sha {
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -148,27 +180,57 @@ footer input::placeholder,
 #plusIcon:active,
 .editBtn:active,
 .delBtn:active,
-.btn:active{
+.btn:active {
   transform: scale(0.95);
 }
-#themeIcon:hover{
+#themeIcon:hover {
   cursor: default;
 }
 .themeColor_color:hover,
-.themeIcon:hover{
+.themeIcon:hover {
   cursor: pointer;
 }
 .newAddedList {
   box-sizing: border-box;
-  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 50px;
-  padding: 50px;
+}
+.footerMessage {
+  height:100%;
+  grid-column: 1/3;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* background-color: lightseagreen; */
+  align-self: baseline;
+  padding:15px;
 }
 .message {
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
   color: white;
+}
+@media (max-width: 550px) {
+  body {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container {
+    margin-top: 20px;
+    height: 40vh;
+  }
+  #original {
+    height: 80vh;
+  }
+  #basicScreen {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .additionalOption {
+    display: flex;
+    justify-content: center;
+  }
+  .newAddedList {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
 }
