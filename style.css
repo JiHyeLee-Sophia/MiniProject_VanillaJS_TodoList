@@ -17,13 +17,11 @@ body {
   justify-self: center;
   display: flex;
   flex-wrap: nowrap;
-  /* background-color: lawngreen; */
 }
 .container {
   display: flex;
   flex-direction: column;
   color: white;
-  background-color: rgba(34, 33, 33, 0.534);
   width: 400px;
   height: 250px;
   border-radius: 15px;
@@ -67,12 +65,11 @@ header {
 .delBtn,
 .editBtn {
   font-size: 1.5rem;
-  margin-right: 10px;
-  margin-bottom: 5px;
+  padding-right:4px;
 }
 main {
   background-color: rgba(245, 245, 245, 0.747);
-  height: 75%;
+  height: 100%;
   font-size: 1.3rem;
   color: rgb(82, 76, 77);
   overflow: auto;
@@ -93,7 +90,6 @@ ul li {
   line-height: 1.7rem;
 }
 .btn{
-  /* background-color: yellow; */
   justify-self: center;
   padding:5px 10px;
 }
@@ -212,9 +208,6 @@ footer input::placeholder,
   .container {
     margin-top: 20px;
     height: 250px;
-  }
-  #original {
-    height: 500px;
   }
   #basicScreen {
     flex-direction: column;
