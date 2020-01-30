@@ -211,10 +211,7 @@ footer input::placeholder,
   }
   .container {
     margin-top: 20px;
-    /* height: 400px; */
-  }
-  #original {
-    height: 80vh;
+    height: 400px;
   }
   #basicScreen {
     flex-direction: column;
