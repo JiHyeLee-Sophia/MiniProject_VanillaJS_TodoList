@@ -70,49 +70,63 @@ function saveLS(listOfTodos, anArray) {
   localStorage.setItem(listOfTodos, JSON.stringify(anArray));
 }
 // (empty or filled array, inputValue, checkForCheckedBox, ul to add class and list)
-function createElements(anArray, INPUTVALUE, getFromLS, ulForList) {
-  const li = document.createElement("li");
-  li.classList.add(`code${ulForList.id}`);
-  li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
-    <i class="fa fa-check-square-o item btn checkedButton dis-non" aria-hidden="true"></i>
-    <span class='item' id = '${anArray.length + 1}'>${INPUTVALUE}</span>
-    <i class="fa fa-trash-o btn removeButton item" aria-hidden="true"></i>`;
-  li.addEventListener("click", clickHandler);
-  ulForList.appendChild(li);
-  const liEle = {
-    text: INPUTVALUE,
-    id: anArray.length + 1,
-    isChecked: false
-  };
-  //if localstorage has data, check if the check box is checked
-  if (getFromLS) {
-    const newLS = JSON.parse(getFromLS);
-    newLS.forEach(ls => {
-      if (ls.id === liEle.id) {
-        liEle.isChecked = ls.isChecked;
-        if (ls.isChecked) {
-          li.children[2].style.textDecoration = "line-through";
-          li.children[2].style.textDecorationThickness = "2px";
-          li.firstElementChild.classList.add("dis-non");
-          li.firstElementChild.nextElementSibling.classList.remove("dis-non");
-        }
-      }
-    });
+class CreateNewList {
+  constructor(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
+    this.anArray = anArray;
+    this.INPUTVALUE = INPUTVALUE;
+    this.getFromLS = getFromLS;
+    this.listOfTodos = listOfTodos;
+    this.ulForList = ulForList;
   }
-  anArray.push(liEle);
+  createElements() {
+    const li = document.createElement("li");
+    li.classList.add(`code${this.ulForList.id}`);
+    li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
+    <i class="fa fa-check-square-o item btn checkedButton dis-non" aria-hidden="true"></i>
+    <span class='item' id = '${this.anArray.length + 1}'>${
+      this.INPUTVALUE
+    }</span>
+    <i class="fa fa-trash-o btn removeButton item" aria-hidden="true"></i>`;
+    li.addEventListener("click", clickHandler);
+    this.ulForList.appendChild(li);
+    const liEle = {
+      text: this.INPUTVALUE,
+      id: this.anArray.length + 1,
+      isChecked: false
+    };
+    //if localstorage has data, check if the check box is checked
+    if (this.getFromLS) {
+      const newLS = JSON.parse(this.getFromLS);
+      newLS.forEach(ls => {
+        if (ls.id === liEle.id) {
+          liEle.isChecked = ls.isChecked;
+          if (ls.isChecked) {
+            li.children[2].style.textDecoration = "line-through";
+            li.children[2].style.textDecorationThickness = "2px";
+            li.firstElementChild.classList.add("dis-non");
+            li.firstElementChild.nextElementSibling.classList.remove("dis-non");
+          }
+        }
+      });
+    }
+    this.anArray.push(liEle);
+    this.emptyInputValue();
+  }
+  emptyInputValue() {
+    input.value = "";
+    saveLS(this.listOfTodos, this.anArray);
+  }
 }
-function createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
-  createElements(anArray, INPUTVALUE, getFromLS, ulForList);
-  input.value = "";
-  saveLS(listOfTodos, anArray);
-}
+
 function keyupHandler(event) {
   event.preventDefault();
   //'enter' event for original list
   if (event.keyCode == 13) {
     const IV = input.value;
     if (IV) {
-      createNewList(liEle_LS, IV, getLS, TODOS, ul);
+      // createNewList(liEle_LS, IV, getLS, TODOS, ul);
+      const create = new CreateNewList(liEle_LS, IV, getLS, TODOS, ul);
+      create.createElements();
     }
   }
 }
@@ -125,7 +139,10 @@ function init() {
   if (getLS) {
     //make a list for original list
     const parsedLS = JSON.parse(getLS);
-    parsedLS.forEach(ls => createNewList(liEle_LS, ls.text, getLS, TODOS, ul));
+    parsedLS.forEach(ls => {
+      const create = new CreateNewList(liEle_LS, ls.text, getLS, TODOS, ul);
+      create.createElements();
+    });
   }
 }
 

@@ -27,6 +27,15 @@ function titleNListHandler(event) {
       ETP.innerText = newTODOS;
       ETP.classList.remove("dis-non");
       ET.classList.add("dis-non");
+      //set focus to input after set title
+      const targets  = document.querySelectorAll(".userNewInput");
+      let target = "";
+      targets.forEach(each => {
+        if(each.classList.contains(ET.classList[1])) {
+          target = each; 
+        }
+      })
+      target.focus();
 
       //add list by user
     } else if (ET.classList.contains("userNewInput")) {
@@ -51,7 +60,8 @@ function titleNListHandler(event) {
         }, 2000);
       } else {
         const thisUl = document.querySelector(`ul.${code}`);
-        createNewList(new_LS, ETV, getnew_LS, headTitle, thisUl);
+        const create = new CreateNewList(new_LS, ETV, getnew_LS, headTitle, thisUl);
+        create.createElements();
         ET.value = "";
       }
     }
@@ -147,7 +157,8 @@ function initContainers() {
           ulTitle.nextElementSibling.classList.add("dis-non");
           let newListArray = [];
           parsedLS.forEach(ls => {
-            createNewList(newListArray, ls.text, getListLS, list, ul);
+            const create = new CreateNewList(newListArray, ls.text, getListLS, list, ul);
+            create.createElements();
             // createNewList(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList)
           });
         }
