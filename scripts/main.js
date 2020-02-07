@@ -46,14 +46,13 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
         //set id again for whole ul
         const ulChilds = buttonsUl.childNodes;
         ulChilds.forEach((each, index) => {
-            let span = each.querySelector('span');
+            let span = each.querySelector("span");
             let id = index + 1;
             span.id = `${id}`;
         });
         let newItemLS = itemLS.filter(item => item.id != clickedId);
         newItemLS.forEach((item, index) => {
             item.id = index + 1;
-            console.log(item);
         });
         itemLS = newItemLS;
         anArray[clickedId - 1];
@@ -65,6 +64,7 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
 }
 function clickHandler(event) {
     event.preventDefault();
+    console.log(event.target);
     const ET = event.target;
     const ETC = ET.classList;
     const ETspan = ET.parentElement.children[2];
@@ -134,9 +134,12 @@ function keyupHandler(event) {
     }
 }
 function init() {
-    const btns = document.querySelectorAll(".btn");
+    //   const btns = document.querySelectorAll(".btn");
+    // console.log(btns)
+    //   const bttt = [...document.querySelectorAll('.btn')]
+    //   console.log(bttt)
+    //   btns.forEach(btn => btn.addEventListener("click", clickHandler));
     getDate();
-    btns.forEach(btn => btn.addEventListener("click", clickHandler));
     document.addEventListener("keyup", keyupHandler);
     if (getLS) {
         //make a list for original list

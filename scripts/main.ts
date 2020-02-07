@@ -35,7 +35,7 @@ function checkByButtons(
     todoName = todoHead.innerText;
   }
 
-  let itemLS:localStorageForm[] = JSON.parse(localStorage.getItem(todoName));
+  let itemLS: localStorageForm[] = JSON.parse(localStorage.getItem(todoName));
   //if user click emptybox button
   if (ETC.contains("emptyButton")) {
     const next = ET.nextElementSibling.classList;
@@ -61,19 +61,20 @@ function checkByButtons(
     ET.parentElement.remove();
     //set id again for whole ul
     const ulChilds = buttonsUl.childNodes;
-    ulChilds.forEach((each:HTMLLIElement, index:number)=>{
-      let span = each.querySelector('span');
-      let id: number = index+1;
+    ulChilds.forEach((each: HTMLLIElement, index: number) => {
+      let span = each.querySelector("span");
+      let id: number = index + 1;
       span.id = `${id}`;
-    })
+    });
 
-    let newItemLS: localStorageForm[] = itemLS.filter(item => item.id != clickedId);
+    let newItemLS: localStorageForm[] = itemLS.filter(
+      item => item.id != clickedId
+    );
     newItemLS.forEach((item: localStorageForm, index: number) => {
-      item.id = index + 1
+      item.id = index + 1;
     });
     itemLS = newItemLS;
     anArray[clickedId - 1];
-
   } else {
     return;
   }
@@ -81,6 +82,7 @@ function checkByButtons(
 }
 function clickHandler(event) {
   event.preventDefault();
+  console.log(event.target);
   const ET = event.target! as HTMLButtonElement;
   const ETC = ET.classList! as DOMTokenList;
   const ETspan = ET.parentElement.children[2]! as HTMLSpanElement;
@@ -111,6 +113,10 @@ class CreateNewList {
     this.getFromLS = getFromLS;
     this.listOfTodos = listOfTodos;
     this.ulForList = ulForList;
+  }
+  public emptyInputValue() {
+    input.value = "";
+    saveLS(this.listOfTodos, this.anArray);
   }
   public createElements() {
     const li = document.createElement("li")! as HTMLLIElement;
@@ -149,10 +155,6 @@ class CreateNewList {
     this.anArray.push(liEle);
     this.emptyInputValue();
   }
-  public emptyInputValue() {
-    input.value = "";
-    saveLS(this.listOfTodos, this.anArray);
-  }
 }
 
 function keyupHandler(event) {
@@ -168,14 +170,11 @@ function keyupHandler(event) {
   }
 }
 function init() {
-  const btns = document.querySelectorAll(".btn");
-
   getDate();
-  btns.forEach(btn => btn.addEventListener("click", clickHandler));
   document.addEventListener("keyup", keyupHandler);
   if (getLS) {
     //make a list for original list
-    const parsedLS = JSON.parse(getLS);
+    const parsedLS:localStorageForm[] = JSON.parse(getLS);
     parsedLS.forEach(ls => {
       const create = new CreateNewList(liEle_LS, ls.text, getLS, TODOS, ul);
       create.createElements();
