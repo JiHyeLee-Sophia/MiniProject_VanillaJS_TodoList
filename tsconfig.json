@@ -4,6 +4,6 @@
         "target" : "ES2015",
         "sourceMap": true
     },
-    "include": ["scripts/main.ts", "scripts/background.ts"],
+    "include": ["scripts/main.ts", "scripts/background.ts", "scripts/theme.ts"],
     "exclude": ["node_modules"]
 }
