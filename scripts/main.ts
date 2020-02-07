@@ -1,25 +1,36 @@
-const TODOS = "todos";
-const ul = document.querySelector(".todos");
-const input = document.querySelector(".input");
-const getLS = localStorage.getItem(TODOS);
-let liEle_LS = [];
-
+const TODOS: string = "todos";
+const ul = document.querySelector(".todos")! as HTMLUListElement;
+const input = document.querySelector(".input")! as HTMLInputElement;
+const getLS: string = localStorage.getItem(TODOS);
+let liEle_LS: object[] = [];
+interface localStorageForm {
+  text: string;
+  id: number;
+  isChecked: boolean;
+}
 //get current date for main todolist title
 function getDate() {
   const currentDate = new Date();
   const options = { weekday: "long", month: "short", day: "numeric" };
-  const container = document.querySelector(".container");
-  const today = container.querySelector(".date");
+  const container = document.querySelector(".container")! as HTMLDivElement;
+  const today = container.querySelector(".date")! as HTMLHeadingElement;
   today.innerHTML = currentDate.toLocaleDateString("en-US", options);
 }
-//empty, checked, removebox button event for whole lists(not just original)
-function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
-  let todoName = "";
-  const code = ET.parentElement.className;
+
+function checkByButtons(
+  ET: HTMLButtonElement,
+  ETC: DOMTokenList,
+  ETspan: HTMLSpanElement,
+  ETspanId: number,
+  anArray: object[]
+) {
+  let todoName: string = "";
+  const code: string = ET.parentElement.className;
   if (code === "code0") {
     todoName = TODOS;
   } else {
-    todoName = document.querySelector(`div.${code} h2`).innerText;
+    var todoHead = document.querySelector(`div.${code} h2`)! as HTMLHeadingElement;
+    todoName = todoHead.innerText;
   }
 
   let itemLS = JSON.parse(localStorage.getItem(todoName));
@@ -28,8 +39,11 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
     const next = ET.nextElementSibling.classList;
     ETC.toggle("dis-non");
     next.toggle("dis-non");
-    ETspan.style.textDecoration = "line-through";
-    ETspan.style.textDecorationThickness = "2px";
+    ETspan.setAttribute(
+      "style",
+      "text-decoration : line-through; text-decoration-thickness:2px;"
+    );
+
     itemLS[ETspanId - 1].isChecked = true;
     //if user click checkedbox button
   } else if (ETC.contains("checkedButton")) {
@@ -40,14 +54,20 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
     itemLS[ETspanId - 1].isChecked = false;
     //if user click removebox button
   } else if (ETC.contains("removeButton")) {
-    let newUl = ET.parentElement.parentElement;
-    const clickedId = ET.previousElementSibling.id;
+    let buttonsUl = ET.parentElement.parentElement! as HTMLUListElement;
+    const clickedId:number = +ET.previousElementSibling.id;
     ET.parentElement.remove();
     //set id again for whole ul
-    for (let i = 0; i < newUl.childElementCount; i++) {
-      newUl.childNodes[i].children[2].id = i + 1;
+    for (let i = 0; i < buttonsUl.childElementCount; i++) {
+      let li = buttonsUl.childNodes[i]! as HTMLLIElement;
+      let liClassName:string = li.className;
+      let thisSpan = document.querySelector(`li.${liClassName} span`)! as HTMLSpanElement;
+      let id:number = i+1;
+      thisSpan.id = JSON.stringify(id);
+      
     }
     let newItemLS = itemLS.filter(item => item.id != clickedId);
+    console.log(newItemLS)
     newItemLS.forEach((item, index) => (item.id = index + 1));
     itemLS = newItemLS;
     anArray[clickedId - 1];
@@ -58,11 +78,11 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
 }
 function clickHandler(event) {
   event.preventDefault();
-  const ET = event.target;
-  const ETC = ET.classList;
-  const ETspan = ET.parentElement.children[2];
+  const ET = event.target! as HTMLButtonElement;
+  const ETC = ET.classList! as DOMTokenList;
+  const ETspan = ET.parentElement.children[2]! as HTMLSpanElement;
   if (ETspan) {
-    const ETspanId = ETspan.id;
+    const ETspanId: number = +ETspan.id;
     checkByButtons(ET, ETC, ETspan, ETspanId, liEle_LS);
   }
 }
@@ -71,15 +91,26 @@ function saveLS(listOfTodos, anArray) {
 }
 // (empty or filled array, inputValue, checkForCheckedBox, ul to add class and list)
 class CreateNewList {
-  constructor(anArray, INPUTVALUE, getFromLS, listOfTodos, ulForList) {
+  public anArray: object[];
+  public INPUTVALUE: string;
+  public getFromLS: string;
+  public listOfTodos: string;
+  public ulForList: HTMLUListElement;
+  constructor(
+    anArray: object[],
+    INPUTVALUE: string,
+    getFromLS: string,
+    listOfTodos: string,
+    ulForList: HTMLUListElement
+  ) {
     this.anArray = anArray;
     this.INPUTVALUE = INPUTVALUE;
     this.getFromLS = getFromLS;
     this.listOfTodos = listOfTodos;
     this.ulForList = ulForList;
   }
-  createElements() {
-    const li = document.createElement("li");
+  public createElements() {
+    const li = document.createElement("li")! as HTMLLIElement;
     li.classList.add(`code${this.ulForList.id}`);
     li.innerHTML = `<i class="fa fa-square-o item btn emptyButton" aria-hidden="true"></i>
     <i class="fa fa-check-square-o item btn checkedButton dis-non" aria-hidden="true"></i>
@@ -89,7 +120,8 @@ class CreateNewList {
     <i class="fa fa-trash-o btn removeButton item" aria-hidden="true"></i>`;
     li.addEventListener("click", clickHandler);
     this.ulForList.appendChild(li);
-    const liEle = {
+
+    const liEle: localStorageForm = {
       text: this.INPUTVALUE,
       id: this.anArray.length + 1,
       isChecked: false
@@ -101,8 +133,10 @@ class CreateNewList {
         if (ls.id === liEle.id) {
           liEle.isChecked = ls.isChecked;
           if (ls.isChecked) {
-            li.children[2].style.textDecoration = "line-through";
-            li.children[2].style.textDecorationThickness = "2px";
+            li.children[2].setAttribute(
+              "style",
+              "text-decoration : line-through; text-decoration-thickness:2px;"
+            );
             li.firstElementChild.classList.add("dis-non");
             li.firstElementChild.nextElementSibling.classList.remove("dis-non");
           }
@@ -112,7 +146,7 @@ class CreateNewList {
     this.anArray.push(liEle);
     this.emptyInputValue();
   }
-  emptyInputValue() {
+  public emptyInputValue() {
     input.value = "";
     saveLS(this.listOfTodos, this.anArray);
   }

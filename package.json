@@ -1,0 +1,16 @@
+{
+    "name": "miniproject_vanillajs_todolist",
+    "version": "1.0.0",
+    "description": "Todolist",
+    "main": "scripts/main.js",
+    "repository": "https://github.com/jihyelee-sophia/miniproject_vanillajs_todolist",
+    "author": "jihyelee-sophia",
+    "license": "MIT",
+    "dependencies": {
+        "global": "^4.4.0",
+        "typescript": "^3.7.5"
+    },
+    "scripts": {
+        "start" : "tsc"
+    }
+}
