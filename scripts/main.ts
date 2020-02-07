@@ -82,7 +82,6 @@ function checkByButtons(
 }
 function clickHandler(event) {
   event.preventDefault();
-  console.log(event.target);
   const ET = event.target! as HTMLButtonElement;
   const ETC = ET.classList! as DOMTokenList;
   const ETspan = ET.parentElement.children[2]! as HTMLSpanElement;

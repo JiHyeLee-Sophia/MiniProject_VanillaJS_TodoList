@@ -64,7 +64,6 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
 }
 function clickHandler(event) {
     event.preventDefault();
-    console.log(event.target);
     const ET = event.target;
     const ETC = ET.classList;
     const ETspan = ET.parentElement.children[2];
@@ -84,6 +83,10 @@ class CreateNewList {
         this.getFromLS = getFromLS;
         this.listOfTodos = listOfTodos;
         this.ulForList = ulForList;
+    }
+    emptyInputValue() {
+        input.value = "";
+        saveLS(this.listOfTodos, this.anArray);
     }
     createElements() {
         const li = document.createElement("li");
@@ -116,10 +119,6 @@ class CreateNewList {
         this.anArray.push(liEle);
         this.emptyInputValue();
     }
-    emptyInputValue() {
-        input.value = "";
-        saveLS(this.listOfTodos, this.anArray);
-    }
 }
 function keyupHandler(event) {
     event.preventDefault();
@@ -134,11 +133,6 @@ function keyupHandler(event) {
     }
 }
 function init() {
-    //   const btns = document.querySelectorAll(".btn");
-    // console.log(btns)
-    //   const bttt = [...document.querySelectorAll('.btn')]
-    //   console.log(bttt)
-    //   btns.forEach(btn => btn.addEventListener("click", clickHandler));
     getDate();
     document.addEventListener("keyup", keyupHandler);
     if (getLS) {
