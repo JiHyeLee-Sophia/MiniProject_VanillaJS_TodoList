@@ -44,16 +44,17 @@ function checkByButtons(ET, ETC, ETspan, ETspanId, anArray) {
         const clickedId = +ET.previousElementSibling.id;
         ET.parentElement.remove();
         //set id again for whole ul
-        for (let i = 0; i < buttonsUl.childElementCount; i++) {
-            let li = buttonsUl.childNodes[i];
-            let liClassName = li.className;
-            let thisSpan = document.querySelector(`li.${liClassName} span`);
-            let id = i + 1;
-            thisSpan.id = JSON.stringify(id);
-        }
+        const ulChilds = buttonsUl.childNodes;
+        ulChilds.forEach((each, index) => {
+            let span = each.querySelector('span');
+            let id = index + 1;
+            span.id = `${id}`;
+        });
         let newItemLS = itemLS.filter(item => item.id != clickedId);
-        console.log(newItemLS);
-        newItemLS.forEach((item, index) => (item.id = index + 1));
+        newItemLS.forEach((item, index) => {
+            item.id = index + 1;
+            console.log(item);
+        });
         itemLS = newItemLS;
         anArray[clickedId - 1];
     }

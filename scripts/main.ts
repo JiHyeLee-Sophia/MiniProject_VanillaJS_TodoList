@@ -29,11 +29,13 @@ function checkByButtons(
   if (code === "code0") {
     todoName = TODOS;
   } else {
-    var todoHead = document.querySelector(`div.${code} h2`)! as HTMLHeadingElement;
+    var todoHead = document.querySelector(
+      `div.${code} h2`
+    )! as HTMLHeadingElement;
     todoName = todoHead.innerText;
   }
 
-  let itemLS = JSON.parse(localStorage.getItem(todoName));
+  let itemLS:localStorageForm[] = JSON.parse(localStorage.getItem(todoName));
   //if user click emptybox button
   if (ETC.contains("emptyButton")) {
     const next = ET.nextElementSibling.classList;
@@ -55,22 +57,23 @@ function checkByButtons(
     //if user click removebox button
   } else if (ETC.contains("removeButton")) {
     let buttonsUl = ET.parentElement.parentElement! as HTMLUListElement;
-    const clickedId:number = +ET.previousElementSibling.id;
+    const clickedId: number = +ET.previousElementSibling.id;
     ET.parentElement.remove();
     //set id again for whole ul
-    for (let i = 0; i < buttonsUl.childElementCount; i++) {
-      let li = buttonsUl.childNodes[i]! as HTMLLIElement;
-      let liClassName:string = li.className;
-      let thisSpan = document.querySelector(`li.${liClassName} span`)! as HTMLSpanElement;
-      let id:number = i+1;
-      thisSpan.id = JSON.stringify(id);
-      
-    }
-    let newItemLS = itemLS.filter(item => item.id != clickedId);
-    console.log(newItemLS)
-    newItemLS.forEach((item, index) => (item.id = index + 1));
+    const ulChilds = buttonsUl.childNodes;
+    ulChilds.forEach((each:HTMLLIElement, index:number)=>{
+      let span = each.querySelector('span');
+      let id: number = index+1;
+      span.id = `${id}`;
+    })
+
+    let newItemLS: localStorageForm[] = itemLS.filter(item => item.id != clickedId);
+    newItemLS.forEach((item: localStorageForm, index: number) => {
+      item.id = index + 1
+    });
     itemLS = newItemLS;
     anArray[clickedId - 1];
+
   } else {
     return;
   }
