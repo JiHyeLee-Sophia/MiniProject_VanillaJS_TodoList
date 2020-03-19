@@ -201,7 +201,7 @@ footer input::placeholder,
 .message {
   color: white;
 }
-@media (max-width: 950px) {
+@media (max-width: 1050px) {
   .newAddedList {
     grid-template-columns: 1fr;
   }
