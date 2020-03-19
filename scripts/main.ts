@@ -2,7 +2,7 @@ const TODOS = "todos";
 const ul = document.querySelector(".todos")! as HTMLUListElement;
 const input = document.querySelector(".input")! as HTMLInputElement;
 const getLS: string = localStorage.getItem(TODOS);
-let liEle_LS: object[];
+let liEle_LS: object[]=[];
 interface localStorageForm {
   text: string;
   id: number;
@@ -162,7 +162,6 @@ function keyupHandler(event) {
   if (event.keyCode == 13) {
     const IV = input.value;
     if (IV) {
-      // createNewList(liEle_LS, IV, getLS, TODOS, ul);
       const create = new CreateNewList(liEle_LS, IV, getLS, TODOS, ul);
       create.createElements();
     }

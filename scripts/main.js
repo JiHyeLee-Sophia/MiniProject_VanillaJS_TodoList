@@ -2,7 +2,7 @@ const TODOS = "todos";
 const ul = document.querySelector(".todos");
 const input = document.querySelector(".input");
 const getLS = localStorage.getItem(TODOS);
-let liEle_LS;
+let liEle_LS = [];
 //get current date for main todolist title
 function getDate() {
     const currentDate = new Date();
@@ -126,7 +126,6 @@ function keyupHandler(event) {
     if (event.keyCode == 13) {
         const IV = input.value;
         if (IV) {
-            // createNewList(liEle_LS, IV, getLS, TODOS, ul);
             const create = new CreateNewList(liEle_LS, IV, getLS, TODOS, ul);
             create.createElements();
         }
