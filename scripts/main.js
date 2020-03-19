@@ -2,7 +2,7 @@ const TODOS = "todos";
 const ul = document.querySelector(".todos");
 const input = document.querySelector(".input");
 const getLS = localStorage.getItem(TODOS);
-let liEle_LS = [];
+let liEle_LS;
 //get current date for main todolist title
 function getDate() {
     const currentDate = new Date();

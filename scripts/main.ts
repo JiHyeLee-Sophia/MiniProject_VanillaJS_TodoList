@@ -1,8 +1,8 @@
-const TODOS: string = "todos";
+const TODOS = "todos";
 const ul = document.querySelector(".todos")! as HTMLUListElement;
 const input = document.querySelector(".input")! as HTMLInputElement;
 const getLS: string = localStorage.getItem(TODOS);
-let liEle_LS: object[] = [];
+let liEle_LS: object[];
 interface localStorageForm {
   text: string;
   id: number;
